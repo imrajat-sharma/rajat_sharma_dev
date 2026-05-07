@@ -23,7 +23,7 @@ const PortfolioSidebar = ({ darkMode, setDarkMode }: Props) => {
       {/* Avatar */}
       <div className="flex flex-col items-center mb-8">
         <div className="w-16 h-16 rounded-full bg-gradient-to-br from-comic-purple to-comic-cyan flex items-center justify-center text-primary-foreground font-display text-2xl comic-shadow">
-          JD
+          RS
         </div>
         <p className="mt-2 text-sm font-bold text-sidebar-foreground">
           Rajat Sharma 
