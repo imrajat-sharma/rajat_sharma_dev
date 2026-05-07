@@ -26,7 +26,7 @@ const PortfolioSidebar = ({ darkMode, setDarkMode }: Props) => {
           JD
         </div>
         <p className="mt-2 text-sm font-bold text-sidebar-foreground">
-          John Doe
+          Rajat Sharma 
         </p>
         <p className="text-xs text-sidebar-foreground/60">Developer</p>
       </div>
