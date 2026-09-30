@@ -1,0 +1,115 @@
+/* ========================================================
+   MODAL — MOBILE-FIRST RESPONSIVE STYLES
+   ======================================================== */
+
+/* Modal Backdrop (Mobile First) */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 7, 14, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-normal);
+  width: 100vw;
+  height: 100vh;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Modal Content Card (Mobile First) */
+.modal-content {
+  width: 100%;
+  max-width: 640px;
+  background: #0c1220;
+  border: 1px solid rgba(0, 242, 254, 0.35);
+  border-radius: var(--radius-md);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 242, 254, 0.15);
+  padding: 1.25rem;
+  position: relative;
+  max-height: 85vh;
+  overflow-y: auto;
+  transform: translateY(20px);
+  transition: transform var(--transition-normal);
+}
+
+.modal-overlay.open .modal-content {
+  transform: translateY(0);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  z-index: 10;
+  touch-action: manipulation;
+}
+
+.modal-close-btn:hover {
+  background: rgba(244, 63, 94, 0.2);
+  color: var(--rose-accent);
+  border-color: rgba(244, 63, 94, 0.4);
+}
+
+.modal-close-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.modal-header {
+  margin-bottom: 1rem;
+  padding-right: 2.5rem;
+}
+
+.modal-title {
+  font-size: clamp(1.2rem, 4vw, 1.45rem);
+  font-weight: 700;
+  color: var(--text-highlight);
+  line-height: 1.3;
+}
+
+/* ========================================================
+   PROGRESSIVE ENHANCEMENT: TABLET & DESKTOP (min-width)
+   ======================================================== */
+
+@media (min-width: 640px) {
+  .modal-overlay {
+    padding: 1.5rem;
+  }
+
+  .modal-content {
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    max-height: 88vh;
+  }
+
+  .modal-close-btn {
+    top: 1.25rem;
+    right: 1.25rem;
+    width: 38px;
+    height: 38px;
+  }
+
+  .modal-header {
+    margin-bottom: 1.25rem;
+  }
+}

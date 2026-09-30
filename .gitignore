@@ -7,24 +7,30 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Diagnostic reports (https://nodejs.org/api/report.html)
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
 # Dependency directories
 node_modules/
 
-# Build output
+# Production build output
 dist/
 dist-ssr/
-.build/
-.vite/
 
-# Local env files
+# Local Environment Variables
 .env
-.env.*
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
 
-# OS files
-.DS_Store
-Thumbs.db
-
-# Editor directories and files
+# Editor & IDE directories
 .vscode/*
 !.vscode/extensions.json
 .idea/
@@ -34,15 +40,14 @@ Thumbs.db
 *.sln
 *.sw?
 
-# TypeScript
-*.tsbuildinfo
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
-# Test coverage
-coverage/
-
-# Bun
-bun.lock
-bun.lockb
-
-# Misc
-*.local
+# Vercel CLI cache & deployment files
+.vercel/

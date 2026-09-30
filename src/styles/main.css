@@ -1,0 +1,12 @@
+@import './variables.css';
+@import './base.css';
+@import './navbar.css';
+@import './hero.css';
+@import './subject.css';
+@import './about.css';
+@import './skills.css';
+@import './projects.css';
+@import './experience.css';
+@import './education.css';
+@import './contact.css';
+@import './modal.css';

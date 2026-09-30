@@ -1,0 +1,314 @@
+/* ========================================================
+   ABOUT SECTION — MOBILE-FIRST RESPONSIVE STYLES
+   ======================================================== */
+
+/* Mobile-First Default: Single Column Stack */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: start;
+  width: 100%;
+}
+
+/* About Narrative */
+.about-narrative {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.about-intro-lead {
+  font-size: clamp(1.05rem, 3.2vw, 1.25rem);
+  font-weight: 500;
+  color: var(--text-highlight);
+  line-height: 1.6;
+}
+
+.about-text {
+  font-size: 0.95rem;
+  color: #cbd5e1;
+  line-height: 1.65;
+}
+
+/* Highlights Grid (Mobile First: 1 col) */
+.about-highlights {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.highlight-box {
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-subtle);
+  transition: all var(--transition-fast);
+}
+
+.highlight-box:hover {
+  border-color: rgba(0, 242, 254, 0.3);
+  background: rgba(0, 242, 254, 0.03);
+}
+
+.highlight-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-highlight);
+  margin-bottom: 0.4rem;
+}
+
+.highlight-title svg {
+  width: 18px;
+  height: 18px;
+  color: var(--cyan-primary);
+  flex-shrink: 0;
+}
+
+.highlight-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Terminal Card */
+.terminal-card {
+  border-radius: var(--radius-lg);
+  background: #090e1a;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+  width: 100%;
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 1rem;
+  background: rgba(14, 21, 37, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.terminal-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.dot-red { background: #ef4444; }
+.dot-yellow { background: #eab308; }
+.dot-green { background: #22c55e; }
+
+.terminal-title {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* Developer Identity Strip in Terminal */
+.terminal-user-strip {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0.85rem;
+  background: rgba(0, 242, 254, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.terminal-avatar-wrapper {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  max-width: 48px;
+  min-height: 48px;
+  max-height: 48px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1.5px solid rgba(0, 242, 254, 0.5);
+  box-shadow: 0 0 14px rgba(0, 242, 254, 0.25);
+  flex-shrink: 0;
+  background: #060b14;
+}
+
+.terminal-avatar {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.terminal-avatar-status {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #10b981;
+  border: 1.5px solid #090e1a;
+  box-shadow: 0 0 8px #10b981;
+}
+
+.terminal-user-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+  overflow: hidden;
+  flex: 1 1 auto;
+}
+
+.terminal-user-meta-top {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.terminal-user-name {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #f8fafc;
+  line-height: 1.2;
+}
+
+.terminal-badge-live {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: var(--radius-full);
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.terminal-user-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--cyan-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Terminal Body */
+.terminal-body {
+  padding: 0.85rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: #94a3b8;
+  overflow-x: auto;
+}
+
+.terminal-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.5rem;
+  margin-bottom: 0.55rem;
+  word-break: break-word;
+}
+
+.t-prompt {
+  color: var(--cyan-primary);
+  user-select: none;
+  font-weight: 700;
+}
+
+.t-cmd {
+  color: #f1f5f9;
+  font-weight: 500;
+}
+
+.t-key {
+  color: #38bdf8;
+  min-width: 80px;
+  flex-shrink: 0;
+}
+
+.t-val {
+  color: #e2e8f0;
+  word-break: break-word;
+  flex: 1 1 180px;
+}
+
+.t-val.highlight {
+  color: #34d399;
+}
+
+/* ========================================================
+   TABLET & DESKTOP PROGRESSIVE ENHANCEMENT (min-width)
+   ======================================================== */
+
+@media (min-width: 640px) {
+  .about-highlights {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  .highlight-box {
+    padding: 1.25rem;
+  }
+
+  .terminal-user-strip {
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+  }
+
+  .terminal-avatar-wrapper {
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+    max-width: 56px;
+    min-height: 56px;
+    max-height: 56px;
+    border-radius: 14px;
+  }
+
+  .terminal-user-name {
+    font-size: 1.05rem;
+  }
+
+  .terminal-user-tag {
+    font-size: 0.75rem;
+  }
+
+  .terminal-body {
+    padding: 1.25rem;
+    font-size: 0.825rem;
+    line-height: 1.75;
+  }
+}
+
+@media (min-width: 992px) {
+  .about-grid {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 3rem;
+  }
+
+  .about-intro-lead {
+    font-size: 1.25rem;
+  }
+
+  .about-text {
+    font-size: 1.02rem;
+  }
+}
