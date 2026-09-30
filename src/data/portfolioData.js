@@ -226,11 +226,12 @@ export const portfolioData = {
       period: "2025 - 2027",
       description: "Advanced studies focusing on distributed systems architecture, artificial intelligence, operating systems, and enterprise software engineering.",
       coursework: [
-        "Distributed Systems Architecture",
+        "Computer System Architecture",
         "Advanced Data Structures & Algorithms",
-        "Artificial Intelligence & Machine Learning",
-        "Cloud Computing & Virtualization",
-        "Database System Internals"
+        "Artificial Intelligence and Applications",
+        "Soft Computing",
+        "Data Communication and Computer Networks",
+        "Full Stack Programming using MERN Stack"
       ]
     },
     {
@@ -245,13 +246,6 @@ export const portfolioData = {
         "Operating System Concepts",
         "Database Management Systems (SQL)"
       ]
-    },
-    {
-      degree: "Senior Secondary Education",
-      institution: "GSS School",
-      period: "2021 - 2022",
-      description: "High school education with rigorous focus on Mathematics, Analytical Reasoning, and Computer Science fundamentals.",
-      coursework: ["Advanced Mathematics", "Economics", "Computer Science"]
     }
   ],
 
