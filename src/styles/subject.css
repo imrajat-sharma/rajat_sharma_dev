@@ -23,6 +23,39 @@
   perspective: 1200px;
 }
 
+.hero-mascot {
+  position: absolute;
+  right: 0;
+  bottom: 0.35rem;
+  z-index: 5;
+  filter: drop-shadow(0 0 14px rgba(0, 242, 254, 0.3));
+}
+
+.hero-mascot-button {
+  width: clamp(84px, 22vw, 120px) !important;
+  height: clamp(84px, 22vw, 120px) !important;
+}
+
+.hero-mascot-button:focus-visible {
+  outline: 2px solid var(--cyan-primary);
+  outline-offset: 2px;
+  border-radius: 50%;
+}
+
+@media (min-width: 640px) {
+  .hero-mascot-button {
+    width: clamp(120px, 17vw, 160px) !important;
+    height: clamp(120px, 17vw, 160px) !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .hero-mascot-button {
+    width: clamp(160px, 12vw, 184px) !important;
+    height: clamp(160px, 12vw, 184px) !important;
+  }
+}
+
 /* Ambient Back Glow */
 .subject-ambient-glow {
   position: absolute;
@@ -199,7 +232,7 @@
   align-items: center;
   justify-content: space-between;
   pointer-events: none;
-  z-index: 6;
+  z-index: 10;
   font-family: var(--font-mono);
   font-size: 0.58rem;
   color: #94a3b8;
@@ -210,6 +243,7 @@
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  transform: translateZ(1px);
 }
 
 .frame-footer-coords {

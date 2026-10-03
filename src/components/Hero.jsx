@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { portfolioData } from '../data/portfolioData';
+import { Mascot } from 'page-mascot';
 
 export default function Hero() {
   const { personal } = portfolioData;
@@ -29,10 +30,12 @@ export default function Hero() {
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Intersection observer to pause loop when scrolled out
     const observer = new IntersectionObserver(([entry]) => {
       isVisible = entry.isIntersecting;
-      if (isVisible && !rafId) {
+      if (!isVisible && rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      } else if (isVisible && !rafId && (isHovered || isTouchActive)) {
         startLoop();
       }
     }, { threshold: 0.1 });
@@ -41,38 +44,35 @@ export default function Hero() {
     const handlePointerCoords = (clientX, clientY) => {
       if (prefersReducedMotion || !isVisible) return;
 
-      const rect = stageWrapper.getBoundingClientRect();
-      const stageCenterX = rect.left + rect.width / 2;
-      const stageCenterY = rect.top + rect.height / 2;
+      const rect = container.getBoundingClientRect();
+      const clampedX = Math.max(-1, Math.min(1, ((clientX - rect.left) / rect.width) * 2 - 1));
+      const clampedY = Math.max(-1, Math.min(1, ((clientY - rect.top) / rect.height) * 2 - 1));
 
-      const maxDistance = Math.max(window.innerWidth / 2, 400);
-      const dx = (clientX - stageCenterX) / maxDistance;
-      const dy = (clientY - stageCenterY) / maxDistance;
-
-      const clampedX = Math.max(-1, Math.min(1, dx));
-      const clampedY = Math.max(-1, Math.min(1, dy));
-
-      targetRotateY = clampedX * 14;
-      targetRotateX = -clampedY * 14;
-      targetSheenX = 50 + clampedX * 40;
-      targetSheenY = 50 + clampedY * 40;
+      targetRotateY = clampedX * 5;
+      targetRotateX = -clampedY * 5;
+      targetSheenX = 50 + clampedX * 35;
+      targetSheenY = 50 + clampedY * 35;
       if (!rafId) startLoop();
     };
 
     const onPointerMove = (e) => {
-      handlePointerCoords(e.clientX, e.clientY);
+      if (e.pointerType !== 'touch') {
+        handlePointerCoords(e.clientX, e.clientY);
+      }
     };
 
-    const onPointerEnter = () => {
+    const onPointerEnter = (e) => {
+      if (e.pointerType === 'touch') return;
       isHovered = true;
     };
 
-    const onPointerLeave = () => {
+    const resetTargets = () => {
       isHovered = false;
       targetRotateX = 0;
       targetRotateY = 0;
       targetSheenX = 50;
       targetSheenY = 50;
+      if (isVisible && !rafId && !prefersReducedMotion) startLoop();
     };
 
     const onTouchStart = (e) => {
@@ -90,91 +90,72 @@ export default function Hero() {
 
     const onTouchEnd = () => {
       isTouchActive = false;
-      targetRotateX = 0;
-      targetRotateY = 0;
-      targetSheenX = 50;
-      targetSheenY = 50;
+      resetTargets();
     };
 
-    window.addEventListener('pointermove', onPointerMove, { passive: true });
-    stageWrapper.addEventListener('pointerenter', onPointerEnter);
-    stageWrapper.addEventListener('pointerleave', onPointerLeave);
-    stageWrapper.addEventListener('touchstart', onTouchStart, { passive: true });
-    stageWrapper.addEventListener('touchmove', onTouchMove, { passive: true });
-    stageWrapper.addEventListener('touchend', onTouchEnd, { passive: true });
-    stageWrapper.addEventListener('touchcancel', onTouchEnd, { passive: true });
-
-    // Optional DeviceOrientation for subtle mobile gyro parallax
-    const onDeviceOrientation = (e) => {
-      if (!isVisible || isHovered || isTouchActive) return;
-      if (e.gamma !== null && e.beta !== null) {
-        const gamma = Math.max(-30, Math.min(30, e.gamma));
-        const beta = Math.max(-30, Math.min(30, e.beta - 45));
-        targetRotateY = (gamma / 30) * 10;
-        targetRotateX = -(beta / 30) * 10;
-        targetSheenX = 50 + (gamma / 30) * 35;
-        targetSheenY = 50 + (beta / 30) * 35;
-        if (!rafId) startLoop();
-      }
-    };
-
-    if (window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission !== 'function') {
-      window.addEventListener('deviceorientation', onDeviceOrientation, { passive: true });
-    }
+    container.addEventListener('pointermove', onPointerMove, { passive: true });
+    container.addEventListener('pointerenter', onPointerEnter);
+    container.addEventListener('pointerleave', resetTargets);
+    container.addEventListener('touchstart', onTouchStart, { passive: true });
+    container.addEventListener('touchmove', onTouchMove, { passive: true });
+    container.addEventListener('touchend', onTouchEnd, { passive: true });
+    container.addEventListener('touchcancel', onTouchEnd, { passive: true });
 
     const startLoop = () => {
-      const render = (time) => {
+      const render = () => {
         if (!isVisible) {
           rafId = null;
           return;
         }
 
-        const lerp = 0.08;
+        const lerp = 0.12;
         currentRotateX += (targetRotateX - currentRotateX) * lerp;
         currentRotateY += (targetRotateY - currentRotateY) * lerp;
         sheenX += (targetSheenX - sheenX) * lerp;
         sheenY += (targetSheenY - sheenY) * lerp;
 
-        let ambientX = 0;
-        let ambientY = 0;
-        if (!isHovered && !isTouchActive && !prefersReducedMotion) {
-          ambientX = Math.sin(time * 0.0015) * 1.5;
-          ambientY = Math.cos(time * 0.0012) * 2;
+        const settled =
+          Math.abs(currentRotateX - targetRotateX) < 0.01 &&
+          Math.abs(currentRotateY - targetRotateY) < 0.01 &&
+          Math.abs(sheenX - targetSheenX) < 0.1 &&
+          Math.abs(sheenY - targetSheenY) < 0.1;
+        if (settled) {
+          currentRotateX = targetRotateX;
+          currentRotateY = targetRotateY;
+          sheenX = targetSheenX;
+          sheenY = targetSheenY;
         }
 
-        const finalX = (currentRotateX + ambientX).toFixed(2);
-        const finalY = (currentRotateY + ambientY).toFixed(2);
+        const finalX = currentRotateX.toFixed(2);
+        const finalY = currentRotateY.toFixed(2);
         const scale = isHovered ? 1.025 : 1;
 
-        if (container) {
-          container.style.transform = `perspective(1000px) rotateX(${finalX}deg) rotateY(${finalY}deg) scale3d(${scale}, ${scale}, ${scale})`;
-        }
+        container.style.transform = `perspective(1000px) rotateX(${finalX}deg) rotateY(${finalY}deg) scale3d(${scale}, ${scale}, ${scale})`;
 
         if (sheen) {
           sheen.style.background = `radial-gradient(circle at ${sheenX.toFixed(1)}% ${sheenY.toFixed(1)}%, rgba(0, 242, 254, 0.18) 0%, rgba(255, 255, 255, 0.08) 35%, transparent 70%)`;
         }
 
+        if (settled) {
+          rafId = null;
+          return;
+        }
         rafId = requestAnimationFrame(render);
       };
 
       rafId = requestAnimationFrame(render);
     };
 
-    startLoop();
-
     return () => {
       observer.disconnect();
       if (rafId) cancelAnimationFrame(rafId);
-      window.removeEventListener('pointermove', onPointerMove);
-      stageWrapper.removeEventListener('pointerenter', onPointerEnter);
-      stageWrapper.removeEventListener('pointerleave', onPointerLeave);
-      stageWrapper.removeEventListener('touchstart', onTouchStart);
-      stageWrapper.removeEventListener('touchmove', onTouchMove);
-      stageWrapper.removeEventListener('touchend', onTouchEnd);
-      stageWrapper.removeEventListener('touchcancel', onTouchEnd);
-      if (window.DeviceOrientationEvent) {
-        window.removeEventListener('deviceorientation', onDeviceOrientation);
-      }
+      container.removeEventListener('pointermove', onPointerMove);
+      container.removeEventListener('pointerenter', onPointerEnter);
+      container.removeEventListener('pointerleave', resetTargets);
+      container.removeEventListener('touchstart', onTouchStart);
+      container.removeEventListener('touchmove', onTouchMove);
+      container.removeEventListener('touchend', onTouchEnd);
+      container.removeEventListener('touchcancel', onTouchEnd);
     };
   }, []);
 
@@ -311,6 +292,16 @@ export default function Hero() {
                   e.currentTarget.src = '/images/avatar_master.jpg';
                 }}
               />
+
+              <div className="hero-mascot">
+                <Mascot
+                  directions="/mascots/cat-directions.webp"
+                  reactions="/mascots/cat-reactions.webp"
+                  size={153}
+                  label="storybook cat"
+                  className="hero-mascot-button"
+                />
+              </div>
 
               {/* Dynamic Holographic Specular Sheen & Scanlines */}
               <div className="frame-sheen-overlay" id="frame-sheen-overlay" ref={sheenRef}></div>

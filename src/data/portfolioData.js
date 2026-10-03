@@ -8,7 +8,7 @@ export const portfolioData = {
     bioDescription: "I specialize in building reliable, low-latency web platforms, practical LLM agent workflows, and intuitive developer tools. From designing real-time matching architectures to simulating operating system process scheduling algorithms, I focus on clean system design, modular code, and exceptional user experience.",
     location: "Gurugram, Haryana, India",
     status: "Open to High-Impact Opportunities & Select Projects",
-    email: "rajatsharma.ts@gmail.com",
+    email: "rajat.s082005@gmail.com",
     github: "https://github.com/imrajat-sharma",
     linkedin: "https://www.linkedin.com/in/imrajat-sharma",
     twitter: "https://x.com/imrajat_sharma",
@@ -226,12 +226,11 @@ export const portfolioData = {
       period: "2025 - 2027",
       description: "Advanced studies focusing on distributed systems architecture, artificial intelligence, operating systems, and enterprise software engineering.",
       coursework: [
-        "Computer System Architecture",
+        "Distributed Systems Architecture",
         "Advanced Data Structures & Algorithms",
-        "Artificial Intelligence and Applications",
-        "Soft Computing",
-        "Data Communication and Computer Networks",
-        "Full Stack Programming using MERN Stack"
+        "Artificial Intelligence & Machine Learning",
+        "Cloud Computing & Virtualization",
+        "Database System Internals"
       ]
     },
     {
@@ -246,6 +245,13 @@ export const portfolioData = {
         "Operating System Concepts",
         "Database Management Systems (SQL)"
       ]
+    },
+    {
+      degree: "Senior Secondary Education",
+      institution: "GSS School",
+      period: "2021 - 2022",
+      description: "High school education with rigorous focus on Mathematics, Analytical Reasoning, and Computer Science fundamentals.",
+      coursework: ["Advanced Mathematics", "Economics", "Computer Science"]
     }
   ],
 
